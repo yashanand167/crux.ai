@@ -8,6 +8,13 @@
       "when": 1779514093103,
       "tag": "0000_vengeful_forge",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1780573657543,
+      "tag": "0001_illegal_daredevil",
+      "breakpoints": true
     }
   ]
 }

@@ -1,4 +1,5 @@
 import { Hono } from 'hono'
+import ENV from "./validators/env.validator";
 
 const app = new Hono()
 
@@ -6,7 +7,7 @@ app.get('/', (c) => {
   return c.text('Hello Hono!')
 })
 
-const port = process.env.PORT ? parseInt(process.env.PORT, 10) : 8000
+const port = ENV.PORT
 
 export default {
   port,

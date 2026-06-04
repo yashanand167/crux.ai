@@ -1,17 +1,53 @@
-To install dependencies:
+# Crux AI API
+
+This is the API server for Crux AI, built with Hono, Drizzle ORM, and PostgreSQL (Neon).
+
+## Getting Started
+
+### 1. Prerequisites
+Ensure you have Bun installed on your system. If not, install it using:
+```sh
+curl -fsSL https://bun.sh/install | bash
+```
+
+### 2. Environment Configuration
+Create a `.env` file in the root of the project by copying the sample file:
+```sh
+cp .env.sample .env
+```
+
+Open the `.env` file and configure the following variables:
+- `PORT`: The port number on which the API server will run (for example, `8000`).
+- `DATABASE_URL`: The PostgreSQL connection string to your database (for example, a Neon connection URI).
+
+### 3. Install Dependencies
+Install the project dependencies using Bun:
 ```sh
 bun install
 ```
 
-To run:
+### 4. Database Migrations
+To set up the database tables:
+
+1. **Generate migrations**: If there are any schema changes that need to be compiled to SQL:
+   ```sh
+   bun run db:generate
+   ```
+
+2. **Run migrations**: Run the migrations to update the database schema:
+   ```sh
+   bun run db:migrate
+   ```
+
+### 5. Running the Application
+Start the development server with hot-reloading:
 ```sh
 bun run dev
 ```
 
-open http://localhost:3000
+The server will start on the port configured in your `.env` file (defaulting to the specified port, e.g. http://localhost:8000).
 
 ## System Workflow
-
 
 ```mermaid
 graph TD

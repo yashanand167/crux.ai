@@ -12,7 +12,6 @@ open http://localhost:3000
 
 ## System Workflow
 
-![System Workflow](workflow.png)
 
 ```mermaid
 graph TD

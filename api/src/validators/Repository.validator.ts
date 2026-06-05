@@ -1,13 +1,14 @@
 import { z } from 'zod';
 
-const githubURLregex = /^(https?:\/\/)?(www\.)?github\.com\/[^\/]+\/[^\/]+$/;
+const repoURLregex = /^(https?:\/\/)?(www\.)?github\.com\/[^\/]+\/[^\/]+$/;
 
 const Repository = z.object({
     id: z.string(),
-    githubURL: z.url().regex(githubURLregex),
+    githubURL: z.url().regex(repoURLregex),
     repoName: z.string(),
     defaultBranch: z.string(),
-    status: z.enum(["PENDING", "FETCHING_METADATA", "CLONING", "SCANNING", "GENERATING_OVERVIEW", "CHUNKING", "ANALYZING_FILES", "EMBEDDING", "READY", "FAILED"]),
+    status: z.enum(["PENDING", "FETCHING_METADATA", "CLONING", "SCANNING", "GENERATING_OVERVIEW", 
+    "CHUNKING", "ANALYZING_FILES", "EMBEDDING", "READY", "FAILED"]),
     repoOwner: z.string(),
     language: z.string(),
     framework: z.string(),
@@ -25,3 +26,5 @@ const RepositoryLanguage = z.object({
 export type Repository = z.infer<typeof Repository>;
 export type RepositoryLanguage = z.infer<typeof RepositoryLanguage>;
 
+export const RepositorySchema = Repository;
+export const RepositoryLanguageSchema = RepositoryLanguage;

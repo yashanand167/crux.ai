@@ -11,9 +11,11 @@
     "@neondatabase/serverless": "^1.1.0",
     "@octokit/rest": "^22.0.1",
     "@openrouter/sdk": "^0.12.35",
+    "bullmq": "^5.78.0",
     "dotenv": "^17.4.2",
     "drizzle-orm": "^0.45.2",
     "hono": "^4.12.21",
+    "ioredis": "^5.11.1",
     "simple-git": "^3.36.0",
     "zod": "^4.4.3"
   },

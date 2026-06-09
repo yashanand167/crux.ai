@@ -1,43 +1,19 @@
-# Dependencies
-node_modules/
+node_modules
+dist
 
-# Environment variables
+.git
+.github
+
 .env
-.env.local
-.env.*.local
+.env.*
 
-# Logs and diagnostics
+README.md
+
+.vscode
+.idea
+
+coverage
+
 *.log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-pnpm-debug.log*
 
-# Editor and OS files
-.DS_Store
-.idea/
-.vscode/
-*.suo
-*.ntvs*
-*.njsproj
-*.sln
-*.sw?
-
-# Version control
-.git/
-.gitignore
-.github/
-
-# Docker files
-Dockerfile
-docker-compose.yml
-.dockerignore
-
-# Build and cache directories
-.bun/
-.cache/
-dist/
-build/
-out/
-tmp/
-temp/
+workflow.png

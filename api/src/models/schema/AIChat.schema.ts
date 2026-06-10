@@ -1,20 +1,40 @@
-import { pgTable, uuid, text, timestamp, pgEnum } from 'drizzle-orm/pg-core';
+import { pgTable, uuid, text, timestamp, pgEnum, varchar } from 'drizzle-orm/pg-core';
 
-export const roleEnum = pgEnum('role', ['user', 'assistant', 'system']);
+export const conversations = pgTable(
+  "conversations",
+  {
+    id: uuid("id")
+      .defaultRandom()
+      .primaryKey(),
 
-export const aiChats = pgTable('ai_chats', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  title: text('title').default('New Chat').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-  updatedAt: timestamp('updated_at').defaultNow().notNull(),
-});
+    repositoryId: uuid("repository_id")
+      .notNull(),
 
-export const aiChatMessages = pgTable('ai_chat_messages', {
-  id: uuid('id').primaryKey().defaultRandom(),
-  chatId: uuid('chat_id')
-    .notNull()
-    .references(() => aiChats.id, { onDelete: 'cascade' }),
-  role: roleEnum('role').notNull(),
-  content: text('content').notNull(),
-  createdAt: timestamp('created_at').defaultNow().notNull(),
-});
+    title: text("title"),
+
+    createdAt: timestamp("created_at")
+      .defaultNow(),
+  }
+);
+
+export const messages = pgTable(
+  "messages",
+  {
+    id: uuid("id")
+      .defaultRandom()
+      .primaryKey(),
+
+    conversationId: uuid("conversation_id")
+      .notNull(),
+
+    role: varchar("role", {
+      length: 20,
+    }).notNull(),
+
+    content: text("content")
+      .notNull(),
+
+    createdAt: timestamp("created_at")
+      .defaultNow(),
+  }
+);

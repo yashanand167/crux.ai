@@ -8,25 +8,25 @@ import {
 } from "drizzle-orm/pg-core";
 
 export enum RepositoryStatus {
-  PENDING = "PENDING",
+    PENDING = "PENDING",
 
-  FETCHING_METADATA = "FETCHING_METADATA",
+    FETCHING_METADATA = "FETCHING_METADATA",
 
-  CLONING = "CLONING",
+    CLONING = "CLONING",
 
-  SCANNING = "SCANNING",
+    SCANNING = "SCANNING",
 
-  GENERATING_OVERVIEW = "GENERATING_OVERVIEW",
+    GENERATING_OVERVIEW = "GENERATING_OVERVIEW",
 
-  CHUNKING = "CHUNKING",
+    CHUNKING = "CHUNKING",
 
-  ANALYZING_FILES = "ANALYZING_FILES",
+    ANALYZING_FILES = "ANALYZING_FILES",
 
-  EMBEDDING = "EMBEDDING",
+    EMBEDDING = "EMBEDDING",
 
-  READY = "READY",
+    READY = "READY",
 
-  FAILED = "FAILED",
+    FAILED = "FAILED",
 }
 
 export const repositories = pgTable("repositories", {
@@ -81,3 +81,32 @@ export const repositoryLanguages = pgTable(
             .notNull(),
     }
 );
+
+export const repositoryFile = pgTable(
+    "repository_file",
+    {
+        id: uuid("id")
+            .defaultRandom()
+            .primaryKey(),
+
+        repositoryId: uuid("repository_id")
+            .notNull(),
+
+        filePath: text("file_path")
+            .notNull(),
+
+        extensuon: varchar("extension", {
+            length: 20
+        }),
+
+        size: integer("size"),
+
+        checksum: varchar("checksum", {
+            length: 64,
+        }),
+
+        createdAt: timestamp("created_at")
+            .defaultNow()
+            .notNull(),
+    }
+)

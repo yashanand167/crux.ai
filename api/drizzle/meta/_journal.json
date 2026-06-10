@@ -15,6 +15,13 @@
       "when": 1780573657543,
       "tag": "0001_illegal_daredevil",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1781077272386,
+      "tag": "0002_blue_corsair",
+      "breakpoints": true
     }
   ]
 }

@@ -1,54 +1,59 @@
+version: "3.8"
+
 services:
+  # Crux API Service
   api:
+    container_name: crux-api
     build:
       context: .
       dockerfile: Dockerfile
-    container_name: crux-api
     ports:
       - "8000:8000"
     env_file:
       - .env
     depends_on:
-      redis:
-        condition: service_healthy
       postgres:
+        condition: service_healthy
+      redis:
         condition: service_healthy
     restart: unless-stopped
 
+  # PostgreSQL Database Service
   postgres:
-    image: postgres:17-alpine
     container_name: crux-postgres
-    restart: unless-stopped
+    image: postgres:17-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: crux
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: crux
+    volumes:
+      - crux-postgres:/var/lib/postgresql/data
     healthcheck:
       test: ["CMD-SHELL", "pg_isready -U crux -d crux"]
       interval: 10s
       timeout: 5s
       retries: 5
-    environment:
-      POSTGRES_USER: crux
-      POSTGRES_PASSWORD: password
-      POSTGRES_DB: crux
-    ports:
-      - "5432:5432"
-    volumes:
-      - crux-postgres:/var/lib/postgresql/data
+    restart: unless-stopped
 
+  # Redis Cache & Queue Service
   redis:
+    container_name: crux-redis
     image: redis:7-alpine
+    command: redis-server --appendonly yes
+    ports:
+      - "6379:6379"
+    volumes:
+      - crux-redis:/data
     healthcheck:
-      test: [ "CMD", "redis-cli", "ping" ]
+      test: ["CMD", "redis-cli", "ping"]
       interval: 10s
       timeout: 5s
       retries: 5
-    container_name: crux-redis
     restart: unless-stopped
-    ports:
-      - "6379:6379"
-    command: redis-server --appendonly yes
-    volumes:
-      - crux-redis:/data
-      
 
+# Named Volumes for Persistent Data
 volumes:
-  crux-redis:
   crux-postgres:
+  crux-redis:

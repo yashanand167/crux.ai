@@ -4,7 +4,7 @@ export interface RepoMetaData {
     defaultBranch: string,
     stars: number,
     forks: number,
-    languages: string[],
+    languages: { name: string; percentage: number }[],
     size: number,
     description: string
 }
